@@ -1,0 +1,5 @@
+unset key
+set xlabel("Energy of higgs(In GeV)");
+set ylabel("Angle between muon pairs(In radians)");
+set title("Boosted Higgs Energy vs Angle between muon pairs");
+plot "abc.dat" using 1:2
