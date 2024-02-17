@@ -38,17 +38,11 @@ Pythia pythia;
   
 pythia.init();
   TFile* outFile = new TFile("pt_u.root", "RECREATE");
-auto c1 = new TCanvas("c1","Graph ",200,10,700,500);
   
-TH1F *h1 = new TH1F("h1","muon transverse momentum (In channel H->WW->2l+2v-) for 0.1 milion events", 130,0.0, 130.0);
-TH1F *h2 = new TH1F("h2","muon+ transverse momentum (In channel H->WW->2l+2v-) for 0.1 milion events", 130,0.0, 130.0);
-auto gr = new TGraph();
-auto vr = new TGraph();
-auto pr = new TGraph();
+TH1F *h1 = new TH1F("h1","muon transverse momentum(In GeV) (In channel H->WW->2l+2v-) for 0.1 million events", 130,0.0, 130.0);
+TH1F *h2 = new TH1F("h2","muon+ transverse momentum(In GeV) (In channel H->WW->2l+2v-) for 0.1 million events", 130,0.0, 130.0);
+//TH1F *h3 = new TH1F("h3","Ratio of muon and muon+ transverse momentum(In GeV) (In channel H->WW->2l+2v-) for 20k events", 130,0.0, 130.0);
 
- gr->SetTitle("Ratio of mu-/mu+ as a function of pT of mu-;pT of mu-;Ratio of mu-/mu+");
- vr->SetTitle("Ratio of mu-/mu+ as a function of pT of mu-;reconstructed W- mass;Ratio of mu-/mu+");
- pr->SetTitle("Ratio of mu-/mu+ as a function of pT of mu-;reconstructed W+ mass;Ratio of mu-/mu+");
 
 
 int nevents=100000;
@@ -108,42 +102,30 @@ if(ptup==0) continue;
 ratio=ptu/ptup;
 
 
-ne1=e1+ve1;
-npx1=px1+vpx1;
-npy1=py1+vpy1;
-npz1=pz1+vpz1;
+//ne1=e1+ve1;
+//npx1=px1+vpx1;
+//npy1=py1+vpy1;
+//npz1=pz1+vpz1;
 
-ne2=e2+ve2;
-npx2=px2+vpx2;
-npy2=py2+vpy2;
-npz2=pz2+vpz2;
+//ne2=e2+ve2;
+//npx2=px2+vpx2;
+//npy2=py2+vpy2;
+//npz2=pz2+vpz2;
 
-rwp=sqrt(pow(ne1,2.0)-pow(npx1,2.0)-pow(npy1,2.0)-pow(npz1,2.0));
-rwm=sqrt(pow(ne2,2.0)-pow(npx2,2.0)-pow(npy2,2.0)-pow(npz2,2.0));
+//rwp=sqrt(pow(ne1,2.0)-pow(npx1,2.0)-pow(npy1,2.0)-pow(npz1,2.0));
+//rwm=sqrt(pow(ne2,2.0)-pow(npx2,2.0)-pow(npy2,2.0)-pow(npz2,2.0));
 
 h1->Fill(ptu);
 h2->Fill(ptup);
-gr->AddPoint(ptu,ratio);
-vr->AddPoint(rwm,ratio);
-pr->AddPoint(rwp,ratio);
 }
 pythia.stat();
+ TH1F *h3 = (TH1F*)h1->Clone("h3");
+h3->SetTitle("Ratio of muon and muon+ transverse momentum(In GeV) (In channel H->WW->2l+2v-) for 0.1 million events");
+  h3->Divide(h2);
  h1->Write();
  h2->Write();
+ h3->Write();
  delete outFile;
-gr -> SetMarkerStyle(21);
-gr -> SetMarkerColor(3);
-gr->Draw("AP");
-c1 -> SaveAs("diff_Graph1.ps");
-vr -> SetMarkerStyle(21);
-vr -> SetMarkerColor(3);
-vr->Write("AP");
-c1 -> SaveAs("diff_Graph2.ps");
-pr -> SetMarkerStyle(21);
-pr -> SetMarkerColor(3);
-pr->Write("AP");
-c1 -> SaveAs("diff_Graph3.ps");
-
 
 return 0;
 }
