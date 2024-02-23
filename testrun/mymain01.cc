@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 TApplication theApp("hist", &argc, argv);
 Pythia pythia;  
   pythia.readString("Beams:eCM = 13000");
-  pythia.readString("Beams:idA = 2212");
+  pythia.readString("Beams:idA = 11");
   pythia.readString("Beams:idB = 2212");
   
   pythia.readString("Random:setSeed = on");
