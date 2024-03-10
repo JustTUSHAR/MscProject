@@ -147,7 +147,7 @@ else
 endif
 
 # General ROOT examples without other external dependencies. 
-main91 main94 mymain01 mymain02 mymain03 mymain04 mymain05 mymain06 mymain07 mymain08 tutorial12: $(PYTHIA) $$@.cc
+main91 main94 mymain01 mymain02 mymain03 mymain04 mymain05 mymain06 mymain07 mymain08 mymain09 mymain10 tutorial12: $(PYTHIA) $$@.cc
 ifeq ($(ROOT_USE),true)
 	$(CXX) $@.cc -o $@ -w $(CXX_COMMON) $(ROOT_LIB)\
 	 $(shell $(ROOT_CONFIG) --cflags --glibs)
