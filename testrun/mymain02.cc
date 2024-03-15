@@ -25,7 +25,6 @@ Pythia pythia;
   pythia.readString("HiggsSM:all = on");   
   pythia.readString("Higgs:useBSM = off");
   
-  //pythia.readString("25:m0 = 125.02");
   pythia.readString("25:onMode = off");
   pythia.readString("25:onIfAny = 24 -24 ");
   
@@ -37,23 +36,16 @@ Pythia pythia;
   
 pythia.init();
   TFile* outFile = new TFile("W_bandwidth.root", "RECREATE");
-TH1F *h1 = new TH1F("h1","Reconstructed w+ Mass (In channel H->WW->2l+2l-)from it's final decay products for 0.1 milion events", 130,0.0, 130.0);
-TH1F *h2 = new TH1F("h2","Reconstructed w- Mass (In channel H->WW->2l+2l-)from it's final decay products for 0.1 milion events", 130,0.0, 130.0);
-
-
-  /*
-  h1->SetFillColor(kRed);
-  hs->Add(h1);
-  h2->SetFillColor(kBlue);
-  hs->Add(h2);
-  */
+TH1F *h1 = new TH1F("h1","Reconstructed w+ Mass (In channel H->WW->2l+2l-) from it's final decay products for 0.1 million events", 130,0.0, 130.0);
+TH1F *h2 = new TH1F("h2","Reconstructed w- Mass (In channel H->WW->2l+2l-) from it's final decay products for 0.1 million events", 130,0.0, 130.0);
+TH1F *h3 = new TH1F("h3","Reconstructed Higgs Mass (In channel H->WW->2l+2l-) from it's final decay products for 0.1 million events", 130,0.0, 130.0);
 int nevents=100000;
 int i;
 float e1,px1,py1,pz1;
 float e2,px2,py2,pz2;
 float ve1,vpx1,vpy1,vpz1;
 float ve2,vpx2,vpy2,vpz2;
-float ne1,npx1,npy1,npz1,ne2,npx2,npy2,npz2,rwp,rwm;
+float ne1,npx1,npy1,npz1,ne2,npx2,npy2,npz2,rwp,rwm,rhm;
 int chk1=0,chk2=0;
 
 for (int iEvent = 0; iEvent < nevents; ++iEvent) 
@@ -108,12 +100,15 @@ npz2=pz2+vpz2;
 
 rwp=sqrt(pow(ne1,2.0)-pow(npx1,2.0)-pow(npy1,2.0)-pow(npz1,2.0));
 rwm=sqrt(pow(ne2,2.0)-pow(npx2,2.0)-pow(npy2,2.0)-pow(npz2,2.0));
+rhm=rwp+rwm;
 h1->Fill(rwp);
 h2->Fill(rwm);
+h3->Fill(rhm);
 }
 pythia.stat();
  h1->Write();
  h2->Write();
+ h3->Write();
   delete outFile;
 return 0;
 }

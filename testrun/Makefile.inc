@@ -22,11 +22,11 @@ EVTGEN_BIN=
 EVTGEN_INCLUDE=
 EVTGEN_LIB=
 
-FASTJET3_USE=false
-FASTJET3_CONFIG=
-FASTJET3_BIN=
-FASTJET3_INCLUDE=
-FASTJET3_LIB=
+FASTJET3_USE=true
+FASTJET3_CONFIG=fastjet-config
+FASTJET3_BIN=/home/hep/fastjet/fastjet_install/bin/
+FASTJET3_INCLUDE=-I/home/hep/fastjet/fastjet_install/include
+FASTJET3_LIB=-L/home/hep/fastjet/fastjet_install/lib -Wl,-rpath,/home/hep/fastjet/fastjet_install/lib -lfastjet
 
 HEPMC2_USE=false
 HEPMC2_CONFIG=
@@ -46,11 +46,11 @@ LHAPDF5_BIN=
 LHAPDF5_INCLUDE=
 LHAPDF5_LIB=
 
-LHAPDF6_USE=false
-LHAPDF6_CONFIG=
-LHAPDF6_BIN=
-LHAPDF6_INCLUDE=
-LHAPDF6_LIB=
+LHAPDF6_USE=true
+LHAPDF6_CONFIG=lhapdf-config
+LHAPDF6_BIN=/home/hep/lhapdf/lhapdf_install/bin/
+LHAPDF6_INCLUDE=-I/home/hep/lhapdf/lhapdf_install/include
+LHAPDF6_LIB=-L/home/hep/lhapdf/lhapdf_install/lib -Wl,-rpath,/home/hep/lhapdf/lhapdf_install/lib -lLHAPDF
 
 POWHEG_USE=false
 POWHEG_CONFIG=
@@ -76,11 +76,11 @@ GZIP_BIN=
 GZIP_INCLUDE=
 GZIP_LIB=
 
-PYTHON_USE=false
-PYTHON_CONFIG=
-PYTHON_BIN=
-PYTHON_INCLUDE=
-PYTHON_LIB=
+PYTHON_USE=true
+PYTHON_CONFIG=python-config
+PYTHON_BIN=/usr/include/python3.10/
+PYTHON_INCLUDE=-I/usr/include/python3.10
+PYTHON_LIB=-L/usr/include/python3.10 -Wl,-rpath,/usr/include/python3.10
 
 MG5MES_USE=false
 MG5MES_CONFIG=
