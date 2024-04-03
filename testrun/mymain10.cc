@@ -1,4 +1,4 @@
-//Onlu muon coming from w+ w- decay
+//Only muon coming from w+ w- decay
 #include<fstream>
 #include<stdio.h>
 #include<stdlib.h>

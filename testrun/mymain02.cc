@@ -9,12 +9,39 @@
 #include "TMath.h"
 #include "TCanvas.h"
 #include "THStack.h"
+#include "TRandom2.h"
+
 
 using namespace Pythia8;
 int main(int argc, char* argv[]) {
 
 TApplication theApp("hist", &argc, argv);
+int ii;
+TRandom2 *rd = new TRandom2(1);
+int r;
+
+
+int nevents=100;
+int i;
+float e1,px1,py1,pz1;
+float e2,px2,py2,pz2;
+float ve1,vpx1,vpy1,vpz1;
+float ve2,vpx2,vpy2,vpz2;
+float ne1,npx1,npy1,npz1,ne2,npx2,npy2,npz2,rwp,rwm,rhm;
+int chk1=0,chk2=0;
+
+  TFile* outFile = new TFile("W_bandwidth_try.root", "RECREATE");
+TH1F *h1 = new TH1F("h1","Reconstructed w+ Mass (In channel H->WW->2l+2l-) from it's final decay products for 0.1 million events", 200,0.0, 200.0);
+TH1F *h2 = new TH1F("h2","Reconstructed w- Mass (In channel H->WW->2l+2l-) from it's final decay products for 0.1 million events", 200,0.0, 200.0);
+TH1F *h3 = new TH1F("h3","Reconstructed Higgs Mass (In channel H->WW->2l+2l-) from it's final decay products for 0.1 million events", 200,0.0, 200.0);
+
+
+for(ii=0;ii<2;ii++)
+{
 Pythia pythia;  
+
+r=(rd->Rndm()*(180.0-140.0))+140.0;
+printf("%lf\n",r);
   pythia.readString("Beams:eCM = 13000");
   pythia.readString("Beams:idA = 2212");
   pythia.readString("Beams:idB = 2212");
@@ -26,27 +53,17 @@ Pythia pythia;
   pythia.readString("Higgs:useBSM = off");
   
   pythia.readString("25:onMode = off");
+  pythia.readString("25:m0=r");
   pythia.readString("25:onIfAny = 24 -24 ");
   
   pythia.readString("24:onMode = off");
   pythia.readString("24:onIfAny = -13 14");
   
   pythia.readString("-24:onMode = off");
-  pythia.readString("-24:onIfAny = 13 -14 ");
+  pythia.readString("-24:onIfAny = 13 -14 ");  
   
 pythia.init();
-  TFile* outFile = new TFile("W_bandwidth.root", "RECREATE");
-TH1F *h1 = new TH1F("h1","Reconstructed w+ Mass (In channel H->WW->2l+2l-) from it's final decay products for 0.1 million events", 130,0.0, 130.0);
-TH1F *h2 = new TH1F("h2","Reconstructed w- Mass (In channel H->WW->2l+2l-) from it's final decay products for 0.1 million events", 130,0.0, 130.0);
-TH1F *h3 = new TH1F("h3","Reconstructed Higgs Mass (In channel H->WW->2l+2l-) from it's final decay products for 0.1 million events", 130,0.0, 130.0);
-int nevents=100000;
-int i;
-float e1,px1,py1,pz1;
-float e2,px2,py2,pz2;
-float ve1,vpx1,vpy1,vpz1;
-float ve2,vpx2,vpy2,vpz2;
-float ne1,npx1,npy1,npz1,ne2,npx2,npy2,npz2,rwp,rwm,rhm;
-int chk1=0,chk2=0;
+
 
 for (int iEvent = 0; iEvent < nevents; ++iEvent) 
 {
@@ -105,10 +122,13 @@ h1->Fill(rwp);
 h2->Fill(rwm);
 h3->Fill(rhm);
 }
-pythia.stat();
- h1->Write();
+//pythia.stat();
+ 
+  }
+  h1->Write();
  h2->Write();
  h3->Write();
-  delete outFile;
+ 
+  delete outFile; 
 return 0;
 }

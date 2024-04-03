@@ -23,6 +23,7 @@ Pythia pythia;
   pythia.readString("Random:seed = 0");
 
   pythia.readString("HiggsSM:all = on");   
+  //pythia.readString("25:m0=160");
   pythia.readString("Higgs:useBSM = off");
   
   pythia.readString("25:onMode = on");
